@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>True Cleaning Solutions - Full Interactive App with Map</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .screen { display: none; margin-top: 20px; }
+        .active { display: block; }
+        button { margin: 10px 5px; padding: 10px 15px; font-size: 16px; }
+        h2 { margin-top: 30px; }
+        .map { border: 2px solid #ccc; padding: 20px; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>True Cleaning Solutions</h1>
+    <p>Select your role:</p>
+    <button onclick="showScreen('admin')">Admin</button>
+    <button onclick="showScreen('cleaner')">Cleaner</button>
+    <button onclick="showScreen('client')">Client</button>
+
+    <div id="admin" class="screen">
+        <h2>Admin Dashboard</h2>
+        <button onclick="showSubScreen('adminJobs')">View Jobs</button>
+        <button onclick="showSubScreen('adminAssign')">Assign Cleaners</button>
+        <button onclick="showSubScreen('adminInvoices')">Generate Invoice</button>
+        <button onclick="back()">Back</button>
+
+        <div id="adminJobs" class="screen">
+            <h3>Scheduled Jobs</h3>
+            <ul>
+                <li>Client: Alice | Cleaner: John | Date: June 18</li>
+                <li>Client: Bob | Cleaner: Mary | Date: June 19</li>
+            </ul>
+        </div>
+        <div id="adminAssign" class="screen">
+            <h3>Assign Cleaners</h3>
+            <p>Select cleaner for Alice: <select><option>John</option><option>Mary</option></select></p>
+        </div>
+        <div id="adminInvoices" class="screen">
+            <h3>Invoices</h3>
+            <p>Invoice for Alice on June 18: £75 - Sent</p>
+        </div>
+    </div>
+
+    <div id="cleaner" class="screen">
+        <h2>Cleaner Dashboard</h2>
+        <button onclick="markDone()">Mark Today's Job as Done</button>
+        <button onclick="showSubScreen('ratings')">View Ratings</button>
+        <button onclick="showSubScreen('bonus')">Check Bonus</button>
+        <button onclick="showSubScreen('map')">View Client Map</button>
+        <button onclick="back()">Back</button>
+
+        <div id="ratings" class="screen">
+            <h3>Recent Ratings</h3>
+            <ul>
+                <li>Client: Alice - ★★★★★</li>
+                <li>Client: Bob - ★★★★☆</li>
+            </ul>
+        </div>
+        <div id="bonus" class="screen">
+            <h3>Bonus Status</h3>
+            <p>90% of your reviews this week are 5 stars. 🎉 You're eligible for a bonus!</p>
+        </div>
+        <div id="map" class="screen">
+            <h3>Client Map View (Placeholder)</h3>
+            <div class="map">
+                <p><strong>North Zone:</strong></p>
+                <ul>
+                    <li>Alice - 123 Maple St <button>Start Navigation</button></li>
+                </ul>
+                <p><strong>South Zone:</strong></p>
+                <ul>
+                    <li>Bob - 456 Oak Rd <button>Start Navigation</button></li>
+                    <li>Charlie - 789 Pine Ave <button>Start Navigation</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="client" class="screen">
+        <h2>Client Dashboard</h2>
+        <button onclick="showSubScreen('book')">Book Cleaning</button>
+        <button onclick="showSubScreen('past')">Past Visits</button>
+        <button onclick="rateCleaner(5)">Rate Cleaner ★★★★★</button>
+        <button onclick="showSubScreen('schedule')">My Regular Cleaning Schedule</button>
+        <p id="bonus-status"></p>
+        <button onclick="back()">Back</button>
+
+        <div id="book" class="screen">
+            <h3>Book a Cleaning</h3>
+            <p>Service Date: <input type="date"></p>
+            <p>Time: <input type="time"></p>
+        </div>
+        <div id="past" class="screen">
+            <h3>Past Visits</h3>
+            <ul>
+                <li>June 11 - Cleaner: John</li>
+                <li>June 4 - Cleaner: John</li>
+            </ul>
+        </div>
+        <div id="schedule" class="screen">
+            <h3>My Regular Cleaning Schedule</h3>
+            <p>Service Day: Every Tuesday</p>
+            <p>Time: 10:00 AM – 12:00 PM</p>
+            <p>Cleaner Assigned: John D.</p>
+            <p>Next Visit: Tuesday, June 18, 2025</p>
+            <p><strong>Please note:</strong> All schedule changes require at least 48 hours' notice.</p>
+            <p>Contact: contact@truecleaningsolutions.co.uk</p>
+        </div>
+    </div>
+
+    <script>
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+        function showSubScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+        function back() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        }
+        function markDone() {
+            alert('Job marked as done. Invoice sent to client@example.com');
+        }
+        function rateCleaner(stars) {
+            if (stars === 5) {
+                document.getElementById('bonus-status').textContent = 'Bonus threshold met! Cleaner gets a bonus.';
+            } else {
+                document.getElementById('bonus-status').textContent = 'Thank you for your feedback!';
+            }
+        }
+    </script>
+</body>
+</html>
